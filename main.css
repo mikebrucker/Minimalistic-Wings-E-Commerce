@@ -1,0 +1,160 @@
+body {
+    max-width: 100%;
+    margin: 0 auto;
+    background-color: rgb(4, 7, 58);
+    color: rgb(4, 7, 58);
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: bold;
+}
+
+.header, .nav {
+    background: rgb(4, 7, 58);
+}
+
+.header, .title, .mainIMG, .nav, input, body {
+    text-align: center;
+}
+
+.nav > div, .product {
+    display: inline-block;
+    width: 33.33%;
+}
+
+.nav, input {
+    max-width: 100%;
+    font-size: 32px;
+    color: rgb(243, 0, 37);
+}
+
+.header > img {
+    width: 50%;
+    margin: 24px auto 0;
+}
+
+.product {
+    vertical-align: text-top; 
+}
+
+.bodyHTML, .title {
+    margin: 10px;
+    background-color: rgb(243, 0, 37);
+    transition: border-color, 1s;
+}
+
+.title {
+    height: 78px;
+}
+
+.border, .bodyHTML, .title {
+    border: 10px solid rgb(243, 0, 37);
+}
+
+.nav > div > div  {
+    padding: 24px 0px 0px;
+    border: 6px solid rgb(243, 0, 37);
+    height: 56px;
+} 
+
+#clothes {
+    border-right: 3px solid rgb(243, 0, 37);
+    
+}
+
+#hats {
+    border-right: 3px solid rgb(243, 0, 37);
+    border-left: 3px solid rgb(243, 0, 37);
+}
+
+#accessories {
+    border-left: 3px solid rgb(243, 0, 37);
+}
+
+#clothes, #hats, #accessories, .bodyHTML, .title {
+    transition: color, 1s;
+    transition: background-color, 1s;
+}
+
+#clothes:hover, #hats:hover, #accessories:hover {
+    color: rgb(4, 7, 58);
+    background-color: rgb(243, 0, 37);
+}
+
+.bodyHTML:hover, .title:hover {
+    color: rgb(243, 0, 37);
+    background-color: rgb(4, 7, 58);
+    border-color: rgb(4, 7, 58);
+}
+
+.title {
+    font-size: 28px;
+}
+
+.bodyHTML {
+    font-size: 20px;
+    text-align: left;
+}
+
+.mainIMG {
+    margin-bottom: -3px;
+    background-color: white;
+}
+
+.mainIMG > img {
+    max-width: 100%;
+}
+
+ul {
+    padding-left: 40px;
+    margin: 5px auto;
+    list-style-type: disc;
+}
+
+li {
+    margin: 2px auto;
+}
+
+input {
+    width: 51%;
+    font-family: Helvetica, Arial, sans-serif;
+    background-color: rgba(243, 0, 36, 0.185);
+    outline: none;
+    border: 0px;
+}
+
+@media all and (min-width:900px) and (max-width: 1200px) {
+    .product {
+        width: 50%;
+    }
+
+    #clothes, #hats, #accessories  {
+        border: 6px solid rgb(243, 0, 37);
+    }
+    
+    .header > img {
+        width: 60%
+    }
+}
+
+@media all and (max-width: 899px) {
+    .product {
+        width: 100%;
+    }
+    
+    
+    .mainIMG img {
+        width: 65%;
+    }
+    
+    .nav > div {
+        display: block;
+        width: 100%;
+    }
+
+    #clothes, #hats, #accessories  {
+        border: 6px solid rgb(243, 0, 37);
+    }
+
+    .header > img {
+        width: 95%
+    }
+}

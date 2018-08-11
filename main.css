@@ -1,17 +1,18 @@
 body {
-    max-width: 100%;
-    margin: 0 auto;
-    background-color: rgb(4, 7, 58);
-    color: rgb(4, 7, 58);
+    min-height: 1000px;
     font-family: Helvetica, Arial, sans-serif;
     font-weight: bold;
+}
+
+body, .bodyHTML:hover, .title:hover, .modalbodyHTML, .modaltitle {
+    background-color: rgb(4, 7, 58);
 }
 
 .header, .nav {
     background: rgb(4, 7, 58);
 }
 
-.header, .title, .mainIMG, .nav, input, body {
+.header, .title, .mainIMG, .nav, input, body, .modalmainIMG > img {
     text-align: center;
 }
 
@@ -21,14 +22,19 @@ body {
 }
 
 .nav, input {
-    max-width: 100%;
     font-size: 32px;
+}
+
+.nav, input, .bodyHTML:hover, .title:hover, .modalborder, .closePosition {
     color: rgb(243, 0, 37);
 }
 
 .header > img {
-    width: 50%;
     margin: 24px auto 0;
+}
+
+.header > img, input {
+    width: 50%;
 }
 
 .product {
@@ -37,7 +43,6 @@ body {
 
 .bodyHTML, .title {
     margin: 10px;
-    background-color: rgb(243, 0, 37);
     transition: border-color, 1s;
 }
 
@@ -74,32 +79,32 @@ body {
     transition: background-color, 1s;
 }
 
-#clothes:hover, #hats:hover, #accessories:hover {
+#clothes:hover, #hats:hover, #accessories:hover, body {
     color: rgb(4, 7, 58);
+}
+
+#clothes:hover, #hats:hover, #accessories:hover, .bodyHTML, .title, .modalborder {
     background-color: rgb(243, 0, 37);
 }
 
 .bodyHTML:hover, .title:hover {
-    color: rgb(243, 0, 37);
-    background-color: rgb(4, 7, 58);
     border-color: rgb(4, 7, 58);
 }
 
-.title {
+.title, .modaltitle {
     font-size: 28px;
 }
 
-.bodyHTML {
+.bodyHTML, .modalbodyHTML {
     font-size: 20px;
     text-align: left;
 }
 
-.mainIMG {
-    margin-bottom: -3px;
+.mainIMG, .modalmainIMG {
     background-color: white;
 }
 
-.mainIMG > img {
+.mainIMG > img, body, .nav {
     max-width: 100%;
 }
 
@@ -114,12 +119,57 @@ li {
 }
 
 input {
-    width: 51%;
     font-family: Helvetica, Arial, sans-serif;
     background-color: rgba(243, 0, 36, 0.185);
     outline: none;
     border: 0px;
 }
+
+.modal {
+    display: none;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background-color: rgb(4, 7, 58, 0.75);
+    overflow: auto;    
+}
+
+.modal > div {
+    position: relative;
+    width: 60%;
+    z-index: 3333;
+}
+
+.modal > div, .modalmainIMG > img  {
+    display: block;
+}
+.modal > div, .modalmainIMG > img, body {
+    margin: 0 auto;
+}
+
+.modalbodyHTML, .modaltitle {
+    margin: 10px;
+}
+
+.modalborder, .modalbodyHTML, .modaltitle {
+    border: 10px solid rgb(4, 7, 58);
+}
+
+.modalmainIMG > img {
+    max-width: 400px;
+}
+
+.closePosition {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 40px;
+    cursor: pointer;
+}
+
+
 
 @media all and (min-width:900px) and (max-width: 1200px) {
     .product {

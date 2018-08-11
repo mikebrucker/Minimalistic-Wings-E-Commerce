@@ -175,10 +175,6 @@ input {
     .product {
         width: 50%;
     }
-
-    #clothes, #hats, #accessories  {
-        border: 6px solid rgb(243, 0, 37);
-    }
     
     .header > img {
         width: 60%
@@ -190,18 +186,30 @@ input {
         width: 100%;
     }
     
-    
-    .mainIMG img {
+    .mainIMG img, .modalmainIMG img {
         width: 65%;
     }
     
-    .nav > div {
+    .nav > div, .modal > div {
         display: block;
         width: 100%;
     }
+    
+    .modal > div {
+        max-width: 500px;
+    }
+
+    #clothes, #hats  {
+        border-bottom: 3px solid rgb(243, 0, 37);
+    }
 
     #clothes, #hats, #accessories  {
-        border: 6px solid rgb(243, 0, 37);
+        border-left: 6px solid rgb(243, 0, 37);
+        border-right: 6px solid rgb(243, 0, 37);
+    }
+
+    #hats, #accessories  {
+        border-top: 3px solid rgb(243, 0, 37);
     }
 
     .header > img {

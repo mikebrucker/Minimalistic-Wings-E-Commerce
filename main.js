@@ -24,7 +24,7 @@ function findProducts(){
 
                 $('.modal').append("<div id='modal" + prodNum + "' class='closeModal'></div>")
                 
-                $('#modal' + prodNum).append("<div class='closePosition' onclick='closeModal()'>&times;</div><div class='modalmainIMG'><div class='leftArrow' onclick='imgLeft" + prodNum + "()'>&#9668;</div><div class='rightArrow' onclick='imgRight" + prodNum + "()'>&#9658;</div><img id='image" + prodNum + "' src='" + prod.images[0].src + "' /></div><div id='gallery" + prodNum + "'></div><div class='modalborder'><div class='modaltitle'>" + prod.title + "</div><div class='modalbodyHTML'>" + prod.body_html + "</div></div>").hide();
+                $('#modal' + prodNum).append("<div class='closePosition' onclick='closeModal()'>&times;</div><div class='modalmainIMG'><div class='leftArrow' onclick='imgLeft" + prodNum + "()'>&#9668;</div><div class='rightArrow' onclick='imgRight" + prodNum + "()'>&#9658;</div><img id='image" + prodNum + "' src='" + prod.images[0].src + "' /></div><div class='modalborder'><div class='modaltitle'>" + prod.title + "</div><div class='modalbodyHTML'>" + prod.body_html + "</div></div>").hide();
 
                 galleryArray = [];
 

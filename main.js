@@ -6,6 +6,9 @@ function closeModal() {
     $('.closeModal').hide();
     $('.modal').hide();
     i = 0;
+    for (j = 0; j < galleriesArray.length; j++) {
+    $('#image' + j).attr('src', galleriesArray[j][0]);
+    }
 }
 
 function findProducts(){

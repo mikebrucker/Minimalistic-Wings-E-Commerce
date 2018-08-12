@@ -1,10 +1,11 @@
-$('.header').click(function() {
-    findProducts();
-})
+let i = 0;
+let galleriesArray = [];
+let galleryArray = [];
 
 function closeModal() {
     $('.closeModal').hide();
     $('.modal').hide();
+    i = 0;
 }
 
 function findProducts(){
@@ -17,20 +18,43 @@ function findProducts(){
             $('.modal').html("");
             $('.modalScript').html("");
             for (let prod of response.products) {
+                var prodNum = response.products.indexOf(prod);
+
+                scripted = scripted + ("function modalShow" + prodNum + "() {$('#modal" + prodNum + "').show();$('.modal').fadeIn();};function imgRight" + prodNum + "() {i++;if (i >= galleriesArray[" + prodNum + "].length) {i = -1; imgRight" + prodNum + "();} else {$('#image" + prodNum + "').attr('src', galleriesArray[" + prodNum + "][i]);}};function imgLeft" + prodNum + "() {i--;if (i < 0) {i = galleriesArray[" + prodNum + "].length;imgLeft" + prodNum + "();} else {$('#image" + prodNum + "').attr('src',galleriesArray[" + prodNum + "][i]);}};");
+
+                $('.modal').append("<div id='modal" + prodNum + "' class='closeModal'></div>")
                 
-                scripted = scripted + ("function modalShow" + response.products.indexOf(prod) + "() {$('#modal" + response.products.indexOf(prod) + "').show();$('.modal').fadeIn();};");
+                $('#modal' + prodNum).append("<div class='closePosition' onclick='closeModal()'>&times;</div><div class='modalmainIMG'><div class='leftArrow' onclick='imgLeft" + prodNum + "()'>&#9668;</div><div class='rightArrow' onclick='imgRight" + prodNum + "()'>&#9658;</div><img id='image" + prodNum + "' src='" + prod.images[0].src + "' /></div><div id='gallery" + prodNum + "'></div><div class='modalborder'><div class='modaltitle'>" + prod.title + "</div><div class='modalbodyHTML'>" + prod.body_html + "</div></div>").hide();
+
+                galleryArray = [];
+
+                for (let image of prod.images) {
+                    galleryArray.push(image.src);
+                }
+
+                galleriesArray.push(galleryArray);
+
                 
-                $('.modal').append("<div id='modal" + response.products.indexOf(prod) + "' class='closeModal'>")
-                
-                $('#modal' + response.products.indexOf(prod)).append("<div class='closePosition' onclick='closeModal()'>&times;</div><div class='modalmainIMG'><img src='" + prod.variants[0].featured_image.src + "' /></div><div class='modalborder'><div class='modaltitle'>" + prod.title + "</div><div class='modalbodyHTML'>" + prod.body_html + "</div></div>").hide();
-                
-                $('.container').append("<div class='product' onclick='modalShow" + response.products.indexOf(prod) + "()'><div class='mainIMG'><img src='" + prod.variants[0].featured_image.src + "' /></div><div class='border'><div class='title'>" + prod.title + "</div><div class='bodyHTML'>" + prod.body_html + "</div></div></div>").hide().fadeIn();
+                $('.container').append("<div class='product' onclick='modalShow" + prodNum + "()'><div class='mainIMG'><img src='" + prod.images[0].src + "' /></div><div class='border'><div class='title'>" + prod.title + "</div><div class='bodyHTML'>" + prod.body_html + "</div></div></div>").hide().fadeIn();
             }
             $('.modalScript').append(scripted);
         }
     })
 }
 
+$('.header').click(function () {
+    $.ajax({
+        type: 'GET',
+        url: 'http://www.redbullshopus.com/products.json',
+        success: function(response) {
+            $('.container').html("");
+            for (let prod of response.products) {
+                                    
+                $('.container').append("<div class='product' onclick='modalShow" + response.products.indexOf(prod) + "()'><div class='mainIMG'><img src='" + prod.variants[0].featured_image.src + "' /></div><div class='border'><div class='title'>" + prod.title + "</div><div class='bodyHTML'>" + prod.body_html + "</div></div></div>").hide().fadeIn();
+            }
+        }
+    })
+})
 
 $('#clothes').click(function () {
     $.ajax({
@@ -83,7 +107,6 @@ $('#accessories').click(function () {
 
 $('input').keyup(function(){
     searchProduct = $(this).val();
-    console.log(searchProduct);
     search(searchProduct);
 })
 

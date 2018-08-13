@@ -4,29 +4,50 @@ body {
     font-weight: bold;
 }
 
-body, .bodyHTML:hover, .title:hover, .modalbodyHTML, .modaltitle {
+body, .title:hover, .modalbodyHTML, .modaltitle {
     background-color: rgb(4, 7, 58);
 }
 
-.header, .nav {
+.header, .nav, .dropDown > div {
     background: rgb(4, 7, 58);
 }
 
-.header, .title, .mainIMG, .nav, input, body, .modalmainIMG > img {
+.header, .title, .mainIMG, .nav, input, .modalmainIMG > img, .dropDown {
     text-align: center;
 }
 
-.nav > div, .product {
+.nav > div, .product, .dropDown {
     display: inline-block;
     width: 33.33%;
 }
 
-.nav, input {
+.nav, input, .dropDown {
     font-size: 32px;
 }
 
-.nav, input, .bodyHTML:hover, .title:hover, .modalborder, .closePosition, .leftArrow, .rightArrow {
+.nav, input, .title:hover, .modalborder, .closePosition, .leftArrow, .rightArrow, .dropDown {
     color: rgb(243, 0, 37);
+}
+
+.dropDown {
+    position: absolute;
+    z-index: 15;
+}
+
+#headwearDrop {
+    left: 33.33%;
+}
+
+#accessoriesDrop {
+    left: 66.66%;
+}
+
+.dropDown > div {
+    padding: 24px 0 0;
+}
+
+.modal, .dropDown {
+    display: none;
 }
 
 .header > img {
@@ -41,7 +62,7 @@ body, .bodyHTML:hover, .title:hover, .modalbodyHTML, .modaltitle {
     vertical-align: text-top; 
 }
 
-.bodyHTML, .title {
+.title {
     margin: 10px;
     transition: border-color, 1s;
 }
@@ -50,44 +71,32 @@ body, .bodyHTML:hover, .title:hover, .modalbodyHTML, .modaltitle {
     height: 78px;
 }
 
-.border, .bodyHTML, .title {
+.border, .title {
     border: 10px solid rgb(243, 0, 37);
 }
 
-.nav > div > div  {
-    padding: 24px 0px 0px;
-    border: 6px solid rgb(243, 0, 37);
+.dropDown > div, #clothes, #headwear, #accessories {
     height: 56px;
+}
+
+#clothes, #headwear, #accessories {
+    padding: 24px 0px 0px;
 } 
 
-#clothes {
-    border-right: 3px solid rgb(243, 0, 37);
-    
-}
-
-#hats {
-    border-right: 3px solid rgb(243, 0, 37);
-    border-left: 3px solid rgb(243, 0, 37);
-}
-
-#accessories {
-    border-left: 3px solid rgb(243, 0, 37);
-}
-
-#clothes, #hats, #accessories, .bodyHTML, .title {
+#clothes, #headwear, #accessories, .title, .dropDown > div {
     transition: color, 1s;
     transition: background-color, 1s;
 }
 
-#clothes:hover, #hats:hover, #accessories:hover, body {
+body, #clothes:hover, #headwear:hover, #accessories:hover, .dropDown > div:hover {
     color: rgb(4, 7, 58);
 }
 
-#clothes:hover, #hats:hover, #accessories:hover, .bodyHTML, .title, .modalborder {
+#clothes:hover, #headwear:hover, #accessories:hover, .title, .modalborder, .dropDown > div:hover {
     background-color: rgb(243, 0, 37);
 }
 
-.bodyHTML:hover, .title:hover {
+.title:hover {
     border-color: rgb(4, 7, 58);
 }
 
@@ -95,7 +104,7 @@ body, .bodyHTML:hover, .title:hover, .modalbodyHTML, .modaltitle {
     font-size: 28px;
 }
 
-.bodyHTML, .modalbodyHTML {
+.modalbodyHTML {
     font-size: 20px;
     text-align: left;
 }
@@ -126,7 +135,6 @@ input {
 }
 
 .modal {
-    display: none;
     width: 100%;
     height: 100%;
     position: fixed;
@@ -136,7 +144,7 @@ input {
     overflow: auto;    
 }
 
-.modalmainIMG, .modal > div {
+body, .modalmainIMG, .modal > div {
     position: relative;
 }
 
@@ -145,7 +153,7 @@ input {
     z-index: 3333;
 }
 
-.modal > div, .modalmainIMG > img  {
+.modal > div, .modalmainIMG > img {
     display: block;
 }
 .modal > div, .modalmainIMG > img, body {
@@ -218,20 +226,19 @@ input {
         max-width: 500px;
     }
 
-    #clothes, #hats  {
-        border-bottom: 3px solid rgb(243, 0, 37);
-    }
-
-    #clothes, #hats, #accessories  {
-        border-left: 6px solid rgb(243, 0, 37);
-        border-right: 6px solid rgb(243, 0, 37);
-    }
-
-    #hats, #accessories  {
-        border-top: 3px solid rgb(243, 0, 37);
-    }
-
     .header > img {
         width: 95%
+    }
+
+    .dropDown {
+        width: 100%;
+    }
+    
+    #headwearDrop {
+        left: 0;
+    }
+    
+    #accessoriesDrop {
+        left: 0;
     }
 }

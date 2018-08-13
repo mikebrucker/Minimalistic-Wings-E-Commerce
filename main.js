@@ -8,6 +8,7 @@ function closeModal() {
     i = 0;
     for (j = 0; j < galleriesArray.length; j++) {
         $('#image' + j).attr('src', galleriesArray[j][0]);
+        $('#sizes' + j).slideUp();
     }
 }
 

@@ -11,6 +11,9 @@ function closeModal() {
     }
 }
 
+// Creates separate modals, makes specific functions for each modal, creates modal gallery, adds sizes
+// Sizes and add to cart are for show only
+
 function findProducts(){
     $.ajax({
         type: 'GET',
@@ -23,11 +26,23 @@ function findProducts(){
             for (let prod of response.products) {
                 var prodNum = response.products.indexOf(prod);
 
-                scripted = scripted + ("function modalShow" + prodNum + "() {$('#modal" + prodNum + "').show();$('.modal').fadeIn();};function imgRight" + prodNum + "() {i++;if (i >= galleriesArray[" + prodNum + "].length) {i = -1; imgRight" + prodNum + "();} else {$('#image" + prodNum + "').attr('src', galleriesArray[" + prodNum + "][i]);}};function imgLeft" + prodNum + "() {i--;if (i < 0) {i = galleriesArray[" + prodNum + "].length;imgLeft" + prodNum + "();} else {$('#image" + prodNum + "').attr('src',galleriesArray[" + prodNum + "][i]);}};");
+                scripted = scripted + ("function modalShow" + prodNum + "() {$('#modal" + prodNum + "').show();$('.modal').fadeIn();};function imgRight" + prodNum + "() {i++;if (i >= galleriesArray[" + prodNum + "].length) {i = -1; imgRight" + prodNum + "();} else {$('#image" + prodNum + "').attr('src', galleriesArray[" + prodNum + "][i]);}};function imgLeft" + prodNum + "() {i--;if (i < 0) {i = galleriesArray[" + prodNum + "].length;imgLeft" + prodNum + "();} else {$('#image" + prodNum + "').attr('src',galleriesArray[" + prodNum + "][i]);}};$('#size" + prodNum + "').click(function() {$('#sizes" + prodNum + "').slideToggle();});");
 
-                $('.modal').append("<div id='modal" + prodNum + "' class='closeModal'></div>")
+                $('.modal').append("<div id='modal" + prodNum + "' class='closeModal'></div>");
                 
-                $('#modal' + prodNum).append("<div class='closePosition' onclick='closeModal()'>&times;</div><div class='modalmainIMG'><div class='leftArrow' onclick='imgLeft" + prodNum + "()'>&#9668;</div><div class='rightArrow' onclick='imgRight" + prodNum + "()'>&#9658;</div><img id='image" + prodNum + "' src='" + prod.images[0].src + "' /></div><div class='modalborder'><div class='modaltitle'>" + prod.title + "</div><div class='modalbodyHTML'>" + prod.body_html + "</div></div>").hide();
+                $('#modal' + prodNum).append("<div class='closePosition' onclick='closeModal()'>&times;</div><div class='modalmainIMG'><div class='leftArrow' onclick='imgLeft" + prodNum + "()'>&#9668;</div><div class='rightArrow' onclick='imgRight" + prodNum + "()'>&#9658;</div><img id='image" + prodNum + "' src='" + prod.images[0].src + "' /></div><div class='modalborder'><div class='modaltitle'>" + prod.title + "</div><button id='cart" + prodNum + "'>Add to Cart</button><div class='size' id='size" + prodNum + "'>Size</div><div class='sizeDropDown' id='sizes" + prodNum + "'></div><div class='modalbodyHTML'>" + prod.body_html + "</div></div>").hide();
+
+                for (let size of prod.variants) {
+                    let avail = false;
+                    if (size.available === true) {
+                        avail = true;
+                        $('#sizes' + prodNum).append("<div>" + size.title + "</div>");
+                    } else if (avail === false) {
+                        $('#size' + prodNum).html("Out of Stock");
+                    }
+                }
+
+                $('#sizes' + prodNum).hide();
 
                 galleryArray = [];
 
@@ -36,7 +51,6 @@ function findProducts(){
                 }
 
                 galleriesArray.push(galleryArray);
-
                 
                 $('.container').append("<div class='product' onclick='modalShow" + prodNum + "()'><div class='mainIMG'><img src='" + prod.images[0].src + "' /></div><div class='border'><div class='title'>" + prod.title + "</div></div></div>").hide().fadeIn(150);
             }
@@ -45,7 +59,9 @@ function findProducts(){
     })
 }
 
-$('.header').click(function () {
+// Returns products in specific categories
+
+$('#allItems').click(function () {
     $.ajax({
         type: 'GET',
         url: 'http://www.redbullshopus.com/products.json',
@@ -278,8 +294,12 @@ $('#bikes').click(function () {
 
 $('input').keyup(function(){
     searchProduct = $(this).val();
-    search(searchProduct);
+    if (searchProduct.length > 2) {
+        search(searchProduct);
+    }
 })
+
+// Returns searched products
 
 function search(searchProduct) {
     $.ajax({
@@ -290,7 +310,7 @@ function search(searchProduct) {
             for (let prod of response.products) {
                 var prodNum = response.products.indexOf(prod);
 
-                if (prod.title.toLowerCase().includes(searchProduct.toLowerCase()) ===true) {
+                if (prod.title.toLowerCase().includes(searchProduct.toLowerCase()) ===true){
                     
                     $('.container').append("<div class='product' onclick='modalShow" + prodNum + "()'><div class='mainIMG'><img src='" + prod.images[0].src + "' /></div><div class='border'><div class='title'>" + prod.title + "</div></div></div>").hide().fadeIn();
                 }
@@ -301,87 +321,57 @@ function search(searchProduct) {
 
 // Nav bar functions
 
-function clothesHeadwearSlideUp() {
-    $('#clothesDrop').slideUp();
-    $('#headwearDrop').slideUp();
-}
-
-function clothesAccessoriesSlideUp() {
-    $('#clothesDrop').slideUp();
-    $('#accessoriesDrop').slideUp();
-}
-
-function headwearAccessoriesSlideUp() {
-    $('#headwearDrop').slideUp();
-    $('#accessoriesDrop').slideUp();
-}
-
 function clothesHighlight() {
     $('#clothes').css('background-color', 'rgb(243, 0, 37)');
     $('#clothes').css('color', 'rgb(4, 7, 58)');
+    $('#headwearDrop').slideUp();
+    $('#accessoriesDrop').slideUp();
+    $('#headwear, #accessories').css('background-color', 'rgb(4, 7, 58)');
+    $('#headwear, #accessories').css('color', 'rgb(243, 0, 37)');
 }
 
 function headwearHighlight() {
     $('#headwear').css('background-color', 'rgb(243, 0, 37)');
     $('#headwear').css('color', 'rgb(4, 7, 58)');
+    $('#clothesDrop').slideUp();
+    $('#accessoriesDrop').slideUp();
+    $('#clothes, #accessories').css('background-color', 'rgb(4, 7, 58)');
+    $('#clothes, #accessories').css('color', 'rgb(243, 0, 37)');
 }
 
 function accessoriesHighlight() {
     $('#accessories').css('background-color', 'rgb(243, 0, 37)');
     $('#accessories').css('color', 'rgb(4, 7, 58)');
-}
-
-function clothesHeadwearUndo() {
+    $('#clothesDrop').slideUp();
+    $('#headwearDrop').slideUp();
     $('#clothes, #headwear').css('background-color', 'rgb(4, 7, 58)');
     $('#clothes, #headwear').css('color', 'rgb(243, 0, 37)');
 }
 
-function clothesAccessoriesUndo() {
-    $('#clothes, #accessories').css('background-color', 'rgb(4, 7, 58)');
-    $('#clothes, #accessories').css('color', 'rgb(243, 0, 37)');
-}
-
-function headwearAccessoriesUndo() {
-    $('#headwear, #accessories').css('background-color', 'rgb(4, 7, 58)');
-    $('#headwear, #accessories').css('color', 'rgb(243, 0, 37)');
-}
-
 $('#clothes').mouseover(function() {
-    headwearAccessoriesSlideUp();
     clothesHighlight();
-    headwearAccessoriesUndo();
 })
 
 $('#headwear').mouseover(function() {
-    clothesAccessoriesSlideUp();
     headwearHighlight();
-    clothesAccessoriesUndo();
 })
 
 $('#accessories').mouseover(function() {
-    clothesHeadwearSlideUp();
     accessoriesHighlight();
-    clothesHeadwearUndo();
 })
 
 $('#clothes').click(function() {
-    headwearAccessoriesSlideUp();
     clothesHighlight();
-    headwearAccessoriesUndo();
     $('#clothesDrop').slideToggle();
 })
 
 $('#headwear').click(function () {
-    clothesAccessoriesSlideUp();
     headwearHighlight();
-    clothesAccessoriesUndo();
     $('#headwearDrop').slideToggle();
 })
 
 $('#accessories').click(function () {
-    clothesHeadwearSlideUp();
     accessoriesHighlight();
-    clothesHeadwearUndo();
     $('#accessoriesDrop').slideToggle();
 })
 

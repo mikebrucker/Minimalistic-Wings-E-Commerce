@@ -4,16 +4,20 @@ body {
     font-weight: bold;
 }
 
-body, .title:hover, .modalbodyHTML, .modaltitle {
+body, .header, .nav, .dropDown > div, .title:hover, .modalbodyHTML, .modaltitle, .size {
     background-color: rgb(4, 7, 58);
 }
 
-.header, .nav, .dropDown > div {
-    background: rgb(4, 7, 58);
+#clothes:hover, #headwear:hover, #accessories:hover, .title, .modalborder, .dropDown > div:hover, .sizeDropDown, button {
+    background-color: rgb(243, 0, 37);
 }
 
-.header, .title, .mainIMG, .nav, input, .modalmainIMG > img, .dropDown {
+.header, .title, .mainIMG, .nav, input, .modalmainIMG > img, .dropDown, .sizeDropDown > div {
     text-align: center;
+}
+
+.size {
+    text-align: right;
 }
 
 .nav > div, .product, .dropDown {
@@ -25,11 +29,15 @@ body, .title:hover, .modalbodyHTML, .modaltitle {
     font-size: 32px;
 }
 
+body, #clothes:hover, #headwear:hover, #accessories:hover, .dropDown > div:hover, .sizeDropDown, button {
+    color: rgb(4, 7, 58);
+}
+
 .nav, input, .title:hover, .modalborder, .closePosition, .leftArrow, .rightArrow, .dropDown {
     color: rgb(243, 0, 37);
 }
 
-.dropDown {
+.dropDown, .sizeDropDown {
     position: absolute;
     z-index: 15;
 }
@@ -63,7 +71,6 @@ body, .title:hover, .modalbodyHTML, .modaltitle {
 }
 
 .title {
-    margin: 10px;
     transition: border-color, 1s;
 }
 
@@ -88,19 +95,12 @@ body, .title:hover, .modalbodyHTML, .modaltitle {
     transition: background-color, 1s;
 }
 
-body, #clothes:hover, #headwear:hover, #accessories:hover, .dropDown > div:hover {
-    color: rgb(4, 7, 58);
-}
-
-#clothes:hover, #headwear:hover, #accessories:hover, .title, .modalborder, .dropDown > div:hover {
-    background-color: rgb(243, 0, 37);
-}
 
 .title:hover {
     border-color: rgb(4, 7, 58);
 }
 
-.title, .modaltitle {
+.title, .modaltitle, .size, .sizeDropDown, button {
     font-size: 28px;
 }
 
@@ -141,7 +141,7 @@ input {
     left: 0;
     top: 0;
     background-color: rgb(4, 7, 58, 0.75);
-    overflow: auto;    
+    overflow: auto;   
 }
 
 body, .modalmainIMG, .modal > div {
@@ -153,18 +153,19 @@ body, .modalmainIMG, .modal > div {
     z-index: 3333;
 }
 
-.modal > div, .modalmainIMG > img {
+.modal > div, .modalmainIMG > img, .sizeDropDown > div {
     display: block;
 }
+
 .modal > div, .modalmainIMG > img, body {
     margin: 0 auto;
 }
 
-.modalbodyHTML, .modaltitle {
+.modalbodyHTML, .modaltitle, .size, .title {
     margin: 10px;
 }
 
-.modalborder, .modalbodyHTML, .modaltitle {
+.modalborder, .modalbodyHTML, .modaltitle, .size {
     border: 10px solid rgb(4, 7, 58);
 }
 
@@ -188,15 +189,38 @@ body, .modalmainIMG, .modal > div {
     top: 200px;
 }
 
-.leftArrow{
+.leftArrow {
     left: 10px;
 }
 
-.rightArrow {
+.rightArrow, .sizeDropDown {
     right: 10px;
 }
 
+.sizeDropDown {
+    min-width: 100px;
+}
 
+.sizeDropDown > div {
+    margin: 10px;
+}
+
+button {
+    float: left;
+    margin: 5px 15px;
+    border-color: rgb(4, 7, 58);
+    outline: none;
+}
+
+button:active {
+    position: relative;
+    top: 1px;
+    left: 1px;
+}
+
+button::after {
+    clear: left;
+}
 
 @media all and (min-width:900px) and (max-width: 1200px) {
     .product {

@@ -1,3 +1,4 @@
+// i is used to cycle images
 let i = 0;
 let galleriesArray = [];
 let galleryArray = [];
@@ -5,16 +6,29 @@ let titleArray = [];
 let readyToAdd = '';
 let scripted = '';
 let productNumber = 0;
+let numberOfProducts = 0;
 
 function addToCart() {
     if (readyToAdd != '') {
-    $('#cart').append("<div class='cart'>" + titleArray[productNumber] + ' ' + readyToAdd + "</div>");
+        numberOfProducts++;
+        $('#cart').append("<div class='cart' onclick='modalShow" + productNumber + "()'>" + titleArray[productNumber] + ' ' + readyToAdd + "</div>");
+        $('#numberOfProducts').html(numberOfProducts);
+        $('.cart').slideUp();
     }
 }
+
+$('#cart').mouseover(function() {
+    $('.cart').slideDown();
+})
+
+$('#cart').mouseleave(function() {
+    $('.cart').slideUp();
+})
 
 function closeModal() {
     $('.closeModal').fadeOut();
     $('.modal').fadeOut();
+    readyToAdd = '';
     i = 0;
     for (j = 0; j < galleriesArray.length; j++) {
         $('#image' + j).attr('src', galleriesArray[j][0]);
@@ -38,7 +52,7 @@ function findProducts(){
             for (let prod of response.products) {
                 var prodNum = response.products.indexOf(prod);
 
-                scripted = scripted + ("function modalShow" + prodNum + "() {$('#modal" + prodNum + "').show();$('.modal').fadeIn();};function imgRight" + prodNum + "() {i++;if (i >= galleriesArray[" + prodNum + "].length) {i = -1; imgRight" + prodNum + "();} else {$('#image" + prodNum + "').attr('src', galleriesArray[" + prodNum + "][i]);}};function imgLeft" + prodNum + "() {i--;if (i < 0) {i = galleriesArray[" + prodNum + "].length;imgLeft" + prodNum + "();} else {$('#image" + prodNum + "').attr('src',galleriesArray[" + prodNum + "][i]);}};$('#size" + prodNum + "').click(function() {$('#sizes" + prodNum + "').slideToggle();});");
+                scripted = scripted + ("function modalShow" + prodNum + "() {$('#modal" + prodNum + "').show();$('.modal').fadeIn();};function imgRight" + prodNum + "() {i++;if (i >= galleriesArray[" + prodNum + "].length) {i = -1; imgRight" + prodNum + "();} else {$('#image" + prodNum + "').attr('src', galleriesArray[" + prodNum + "][i]);}};function imgLeft" + prodNum + "() {i--;if (i < 0) {i = galleriesArray[" + prodNum + "].length;imgLeft" + prodNum + "();} else {$('#image" + prodNum + "').attr('src',galleriesArray[" + prodNum + "][i]);}};$('#size" + prodNum + "').click(function() {$('#sizes" + prodNum + "').slideToggle();$('#size" + prodNum + "').html('Size');});");
 
                 $('.modal').append("<div id='modal" + prodNum + "' class='closeModal'></div>");
                 
@@ -70,7 +84,6 @@ function findProducts(){
                 galleriesArray.push(galleryArray);
                 
                 $('.container').append("<div class='product' onclick='modalShow" + prodNum + "()'><div class='mainIMG'><img src='" + prod.images[0].src + "' /></div><div class='border'><div class='title'>" + prod.title + "</div></div></div>").hide().fadeIn(150);
-                console.log(prod.title);
             }
             $('.modalScript').append(scripted);
         }

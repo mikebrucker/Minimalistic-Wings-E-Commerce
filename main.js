@@ -1,6 +1,16 @@
 let i = 0;
 let galleriesArray = [];
 let galleryArray = [];
+let titleArray = [];
+let readyToAdd = '';
+let scripted = '';
+let productNumber = 0;
+
+function addToCart() {
+    if (readyToAdd != '') {
+    $('#cart').append("<div class='cart'>" + titleArray[productNumber] + ' ' + readyToAdd + "</div>");
+    }
+}
 
 function closeModal() {
     $('.closeModal').fadeOut();
@@ -9,6 +19,7 @@ function closeModal() {
     for (j = 0; j < galleriesArray.length; j++) {
         $('#image' + j).attr('src', galleriesArray[j][0]);
         $('#sizes' + j).slideUp();
+        $('#size' + j).html('Size');
     }
 }
 
@@ -31,13 +42,18 @@ function findProducts(){
 
                 $('.modal').append("<div id='modal" + prodNum + "' class='closeModal'></div>");
                 
-                $('#modal' + prodNum).append("<div class='closePosition' onclick='closeModal()'>&times;</div><div class='modalmainIMG'><div class='leftArrow' onclick='imgLeft" + prodNum + "()'>&#9668;</div><div class='rightArrow' onclick='imgRight" + prodNum + "()'>&#9658;</div><img id='image" + prodNum + "' src='" + prod.images[0].src + "' /></div><div class='modalborder'><div class='modaltitle'>" + prod.title + "</div><button id='cart" + prodNum + "'>Add to Cart</button><div class='size' id='size" + prodNum + "'>Size</div><div class='sizeDropDown' id='sizes" + prodNum + "'></div><div class='modalbodyHTML'>" + prod.body_html + "</div></div>").hide();
+                $('#modal' + prodNum).append("<div class='closePosition' onclick='closeModal()'>&times;</div><div class='modalmainIMG'><div class='leftArrow' onclick='imgLeft" + prodNum + "()'>&#9668;</div><div class='rightArrow' onclick='imgRight" + prodNum + "()'>&#9658;</div><img id='image" + prodNum + "' src='" + prod.images[0].src + "' /></div><div class='modalborder'><div class='modaltitle'>" + prod.title + "</div><button onclick='addToCart()'>Add to Cart</button><div class='size' id='size" + prodNum + "'>Size</div><div class='sizeDropDown' id='sizes" + prodNum + "'></div><div class='modalbodyHTML'>" + prod.body_html + "</div></div>").hide();
+
+                titleArray.push(prod.title);
 
                 for (let size of prod.variants) {
                     let avail = false;
                     if (size.available === true) {
                         avail = true;
-                        $('#sizes' + prodNum).append("<div>" + size.title + "</div>");
+                        $('#sizes' + prodNum).append("<div onclick='size" + prodNum + prod.variants.indexOf(size) + "()'>" + size.title + "</div>");
+
+                        scripted = scripted + ("function size" + prodNum + prod.variants.indexOf(size) + "() {readyToAdd = '" + size.title + "';productNumber = " + prodNum + ";$('#size" + prodNum + "').html('" + size.title + "');};");
+
                     } else if (avail === false) {
                         $('#size' + prodNum).html("Out of Stock");
                     }
@@ -54,6 +70,7 @@ function findProducts(){
                 galleriesArray.push(galleryArray);
                 
                 $('.container').append("<div class='product' onclick='modalShow" + prodNum + "()'><div class='mainIMG'><img src='" + prod.images[0].src + "' /></div><div class='border'><div class='title'>" + prod.title + "</div></div></div>").hide().fadeIn(150);
+                console.log(prod.title);
             }
             $('.modalScript').append(scripted);
         }

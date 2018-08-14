@@ -66,7 +66,7 @@ function findProducts(){
                         avail = true;
                         $('#sizes' + prodNum).append("<div onclick='size" + prodNum + prod.variants.indexOf(size) + "()'>" + size.title + "</div>");
 
-                        scripted = scripted + ("function size" + prodNum + prod.variants.indexOf(size) + "() {readyToAdd = '" + size.title + "';productNumber = " + prodNum + ";$('#size" + prodNum + "').html('" + size.title + "');};");
+                        scripted = scripted + ("function size" + prodNum + prod.variants.indexOf(size) + "() {readyToAdd = '" + size.title + "';productNumber = " + prodNum + ";$('#size" + prodNum + "').html('" + size.title + "');$('#sizes" + prodNum + "').slideToggle();};");
 
                     } else if (avail === false) {
                         $('#size' + prodNum).html("Out of Stock");
